@@ -16,6 +16,9 @@ for i in range(6, 5001):
 if dp[N] >= 9999:
 	print("-1")
 
+
+
+
 else:
 	print(dp[N]);
 
