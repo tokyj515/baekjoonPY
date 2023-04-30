@@ -13,3 +13,8 @@ for i in range(T):
             for k in range(1, j + 1):
                 p[i][j] += p[i - 1][k]
     print(p[i][j])
+
+
+
+
+
