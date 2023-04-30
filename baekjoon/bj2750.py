@@ -8,3 +8,5 @@ num.sort(reverse=False)
 
 for n in num:
     print(n)
+    
+    
