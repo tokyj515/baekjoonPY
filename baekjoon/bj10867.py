@@ -18,3 +18,6 @@ for n in num:
 # for i in range(0,N):
 #     if(numList[i] == 1):
 #         print(i, end=" ")
+
+
+
