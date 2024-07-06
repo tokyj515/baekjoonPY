@@ -1,74 +1,70 @@
 import sys
 from collections import deque
 
+input = sys.stdin.readline
 
-# def dfs(graph, r, c, visited):
-#
-#     # 범위 확인
-#     if r <= 0 or r >= n+1 or c <= 0 or c >= m+1:
-#         return false
-#
-#     # 현재 지점 유효
-#     visited[r][c] = true
-#
-#     dfs()
-#
-#
-#
-#     for i in graph[v]:
-#         if not visited[i]:
-#             dfs(graph, i, visited)
-#
-#
-#
+n, m = map(int, input().split())
 
+graph = []
+maze = [[0 for _ in range(m)] for _ in range(n)]
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 
-# 상하좌우
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-n, m = map(int, sys.stdin.readline().split())
-
-graph =[]
-# visitd = [[] for _ in range(n)]
-
-# 그래프 세팅
 for _ in range(n):
-    temp = list(map(int, sys.stdin.readline().rstrip()))
+    temp = list(input().rstrip())
     graph.append(temp)
 
+queue = deque()
+queue.append((0, 0))
+maze[0][0] += 1
 
-# print(graph)
+while queue:
+    x, y = queue.popleft()
 
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-# 최소 칸 -> BFS
-def bfs():
-    #큐 설정, 시작 위치 인덱스
-    queue = deque()
-    queue.append((0, 0))
+        if 0 <= nx and nx < n and 0 <= ny and ny < m and graph[nx][ny] == '1' and maze[nx][ny] == 0:
+            queue.append((nx, ny))
+            maze[nx][ny] = maze[x][y] + 1
 
-    while queue:
-        x, y = queue.popleft()
-
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-
-            # 그래프 범위 내인지
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
-                continue
-
-            # 갈 수 있는 곳인지 아닌지
-            if graph[nx][ny] == 0:
-                continue
-
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
-                queue.append((nx, ny))
+print(maze[n - 1][m - 1])
 
 
-    return graph[n-1][m-1]
 
-
-print(bfs())
-
+# import sys
+# from collections import deque
+#
+# input = sys.stdin.readline
+#
+# n, m = map(int, input().split())
+#
+# graph = []
+# visited = []
+# dx = [0, 0, 1, -1]
+# dy = [1, -1, 0, 0]
+#
+#
+# for _ in range(n):
+#     temp = list(map(int, list(input().rstrip())))
+#     graph.append(temp)
+#
+#
+# queue = deque()
+#
+# queue.append((0, 0))
+# while queue:
+#     x, y = queue.popleft()
+#
+#     for i in range(4):
+#         nx = x + dx[i]
+#         ny = y + dy[i]
+#
+#         if 0 <= nx and nx < n and 0 <= ny and ny < m and graph[nx][ny] == 1:
+#             graph[nx][ny] = graph[x][y] + 1
+#             queue.append((nx, ny))
+#
+#
+# # /
+# print(graph[n-1][m-1])
