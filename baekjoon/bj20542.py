@@ -1,51 +1,35 @@
 import sys
-from collections import Counter
-from collections import defaultdict
-
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-
 write = input().rstrip()
 correct = input().rstrip()
-cnt = 0
-
 
 def i_check(a, b):
-    if (a == 'i') and (b in ['i', 'j', 'l']):
-        return True
-    return False
+    return (a == 'i' and b in ['i', 'j', 'l'])
 
 def v_check(a, b):
-    if (a == 'v') and (b in ['v', 'w']):
-        return True
-    return False
+    return (a == 'v' and b in ['v', 'w'])
 
+dp = [[0] * (m + 1) for _ in range(n + 1)]
 
-write_cnt = Counter(write)
-correct_cnt = Counter(correct)
+for i in range(n + 1):
+    dp[i][0] = i
 
-write_cnt = sorted(write_cnt.items())
-correct_cnt = sorted(correct_cnt.items())
+for j in range(m + 1):
+    dp[0][j] = j
 
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        if write[i-1] == correct[j-1]:
+            dp[i][j] = dp[i-1][j-1]
+        else:
+            dp[i][j] = min(
+                dp[i-1][j] + 1,    # 삭제
+                dp[i][j-1] + 1,    # 삽입
+                dp[i-1][j-1] + 1   # 교체
+            )
+            if i_check(write[i-1], correct[j-1]) or v_check(write[i-1], correct[j-1]):
+                dp[i][j] = min(dp[i][j], dp[i-1][j-1])
 
-print(write_cnt)
-print(correct_cnt)
-
-
-
-
-if len(write) != len(correct):
-    for d1, d2 in zip(write_cnt, correct_cnt):
-         print(d1, d2)
-
-# 변환
-else:
-    for a, b in zip(write, correct):
-            if a != b:
-                if i_check(a, b): continue
-                if v_check(a, b): continue
-                cnt += 1
-
-
-print(cnt)
+print(dp[n][m])
