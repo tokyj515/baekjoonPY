@@ -37,7 +37,7 @@ print(correct_cnt)
 
 if len(write) != len(correct):
     for d1, d2 in zip(write_cnt, correct_cnt):
-         print(d1, d2)
+        print(d1, d2)
 
 # 변환
 else:
