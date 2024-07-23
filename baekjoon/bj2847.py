@@ -14,7 +14,7 @@ for i in range(k):
 num.sort(reverse=True)
 
 
-print(num)
+# print(num)
 
 cnt = 0
 
@@ -26,6 +26,8 @@ for i in range(k-1):
         cnt += b[1] - (a[1]- 1) 
         b[1] = a[1]- 1
     
-    print(num)
-    print(cnt)
+    # print(num)
+    # print(cnt)
+       
+print(cnt)
        
